@@ -36,6 +36,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: Stable-CI
-          files: TDS-${{ runner.os }}.7z
+          files: tds-${{ runner.os }}.7z
           body: |
             CI Build for Dreamweave TDS Fork
