@@ -45,9 +45,9 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: |
-          Compress-Archive -LiteralPath '*.lua', "${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}" -DestinationPath "${{ github.workspace }}\tds-${{ runner.os }}.zip"
-          Get-Location
-          Get-ChildItem -path "."
+          $files = @(Get-ChildItem -Path '*.lua' -File)
+          $files += "${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}"
+          Compress-Archive -LiteralPath $files -DestinationPath "${{ github.workspace }}\\tds-${{ runner.os }}.zip"
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
