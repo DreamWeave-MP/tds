@@ -29,6 +29,7 @@ jobs:
         shell: bash
         run: |
           mkdir build && cmake . -Bbuild -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_RELEASE_TYPE=Release && cmake --build build
+          ls -R
 
           if [[ ${{ runner.os }} == 'Windows' ]]; then
             mv build/Debug/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
