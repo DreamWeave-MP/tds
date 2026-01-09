@@ -47,10 +47,7 @@ jobs:
       - name: Make Archive
         if: runner.os == 'Windows'
         shell: powershell
-        run: |
-          $files = "tds"
-          $files += "${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}"
-          Compress-Archive -LiteralPath $files -DestinationPath "${{ github.workspace }}\\tds-${{ runner.os }}.zip"
+        run: Compress-Archive -LiteralPath "tds", "libtds.dll" -DestinationPath "${{ github.workspace }}\\tds-${{ runner.os }}.zip"
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
