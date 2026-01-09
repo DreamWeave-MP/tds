@@ -28,8 +28,13 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          mkdir build && cmake . -Bbuild -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && cmake --build build
-          mv build/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
+          mkdir build && cmake . -Bbuild -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_RELEASE_TYPE=Release && cmake --build build
+
+          if [[ ${{ runner.os }} == 'Windows' ]]; then
+            mv build/Release/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
+          else
+            mv build/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
+          fi
 
       - name: Make Archive
         shell: bash
