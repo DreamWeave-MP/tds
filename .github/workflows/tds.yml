@@ -14,8 +14,7 @@ jobs:
     runs-on: ${{ matrix.target_system }}
     env:
       BUILD_EXT_DYN: ${{ matrix.target_system == 'windows-latest' && '.dll' || '.so' }}
-      BUILD_PREFIX: ${{ matrix.target_system != 'windows-latest' && 'lib' || ''}}
-      LIB_NAME: 'tds'
+      LIB_NAME: 'libtds'
 
     steps:
       - uses: actions/checkout@v4
@@ -32,14 +31,14 @@ jobs:
           ls -R
 
           if [[ ${{ runner.os }} == 'Windows' ]]; then
-            mv build/Debug/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
+            mv build/Debug/${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
           else
             mv build/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
           fi
 
       - name: Make Archive
         shell: bash
-        run: zip -r9 tds-${{ runner.os }}.zip *.lua ${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}
+        run: zip -r9 tds-${{ runner.os }}.zip *.lua ${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
