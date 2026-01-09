@@ -54,9 +54,3 @@ tds_vec_free
 EXPORTS
 ; /* atomic counter */
 tds_has_atomic
-tds_atomic_new
-tds_atomic_inc
-tds_atomic_get
-tds_atomic_set
-tds_atomic_retain
-tds_atomic_free
