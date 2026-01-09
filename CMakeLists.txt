@@ -33,5 +33,5 @@ FILE(GLOB luafiles *.lua)
 
 if(MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS
-        "${CMAKE_MODULE_LINKER_FLAGS} /DEF:.\\tds.def")
+        "${CMAKE_MODULE_LINKER_FLAGS} /DEF:..\\tds.def")
 endif()
