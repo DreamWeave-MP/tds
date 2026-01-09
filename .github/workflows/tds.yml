@@ -30,6 +30,9 @@ jobs:
           mkdir build && cmake . -Bbuild -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_RELEASE_TYPE=Release && cmake --build build
           ls -R
 
+          mkdir tds
+          mv *.lua tds/
+
           if [[ ${{ runner.os }} == 'Windows' ]]; then
             mv build/Debug/${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
           else
@@ -39,13 +42,13 @@ jobs:
       - name: Make Archive
         if: runner.os != 'Windows'
         shell: bash
-        run: zip -r9 tds-${{ runner.os }}.zip *.lua ${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}
+        run: zip -r9 tds-${{ runner.os }}.zip tds/ ${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}
 
       - name: Make Archive
         if: runner.os == 'Windows'
         shell: powershell
         run: |
-          $files = @(Get-ChildItem -Path '*.lua' -File)
+          $files = "tds"
           $files += "${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}"
           Compress-Archive -LiteralPath $files -DestinationPath "${{ github.workspace }}\\tds-${{ runner.os }}.zip"
 
