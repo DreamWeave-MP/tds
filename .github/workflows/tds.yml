@@ -37,8 +37,14 @@ jobs:
           fi
 
       - name: Make Archive
+        if: runner.os != 'Windows'
         shell: bash
         run: zip -r9 tds-${{ runner.os }}.zip *.lua ${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }}
+
+      - name: Make Archive
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: Compress-Archive -LiteralPath '*.lua' -LiteralPath ${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} -DestinationPath "tds-${{ runner.os }}.zip"
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
