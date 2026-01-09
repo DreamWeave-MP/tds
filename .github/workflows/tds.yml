@@ -29,7 +29,7 @@ jobs:
         shell: bash
         run: |
           mkdir build && cmake . -Bbuild -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && cmake --build build
-          mv ${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
+          mv build/${{ env.BUILD_PREFIX }}${{ env.LIB_NAME }}${{ env.BUILD_EXT_DYN }} .
 
       - name: Make Archive
         shell: bash
